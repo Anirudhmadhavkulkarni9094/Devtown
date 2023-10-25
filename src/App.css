@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.progress{
+    width: 120%;
+    
+}
+
+
+
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 2rem; /* Adjust the size of the thumb */
+    height: 2rem; /* Adjust the size of the thumb */
+    background-color: var(--thumb-color); /* Use the custom color for the thumb */
+    border: 2px solid white; /* Add a border for a polished look */
+    border-radius: 50%; /* Make it a circle */
+    cursor: pointer;
+
+}
