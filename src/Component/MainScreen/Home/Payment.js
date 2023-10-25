@@ -76,7 +76,7 @@ function Payment({ sum }) {
             Expiration Date:
           </label>
           <input
-            type="text"
+            type="date"
             id="expirationDate"
             name="expirationDate"
             value={formData.expirationDate}
