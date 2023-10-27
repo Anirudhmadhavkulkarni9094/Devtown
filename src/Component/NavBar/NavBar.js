@@ -3,7 +3,41 @@ import { Link } from 'react-router-dom';
 
 function NavBar({ cart, sum, remove, add, quantity}) {
   const [cartVisible, setCartVisible] = useState(false);
+  const [login , Setlogin] = useState(false);
+  const [username , setUsername] = useState("");
+  const [password , setpassword ] = useState("");
+  const [img , setimg] = useState("default.png");
 
+  const handleSubmit = (e) => {
+    let userFound = false; // A flag to track if the user is found
+  e.preventDefault()
+    userData.forEach(element => {
+      if (username === element.name && password === element.password) {
+        setimg(element.img);
+        userFound = true; // Set the flag to true when the user is found
+        Setlogin(false)
+      }
+      console.log(element)
+    });
+  
+    if (!userFound) {
+      alert("User not found"); // Show the alert if the user is not found
+    }
+  }
+  
+  const userData = [
+    {
+      name: "Anirudh",
+      img: "Anirudh.jpg",
+      password: "Password"
+    },
+    {
+      name: "Madhav",
+      img: "Anirudh.jpg",
+      password: "Password"
+    }
+  ];
+  
   return (
     <div className='items-center flex justify-around '>
       <Link to='/'>
@@ -92,6 +126,24 @@ function NavBar({ cart, sum, remove, add, quantity}) {
         </div>
       </div>
       )}
+      <div className='flex gap-5'>
+      <button onClick={()=>Setlogin(!login)}>Sign in</button> 
+      {login && <div className='fixed top-20 rounded-xl text-black bg-slate-400 p-5 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
+        
+        <form onSubmit={(e)=>handleSubmit(e)}>
+          <div className='flex flex-col m-4'>
+            <label>UserId</label>
+            <input placeholder='userid : Anirudh' className='px-3 py-2 rounded-lg outline-none m-2' onChange={(e)=>setUsername(e.target.value)}></input>
+          </div>
+          <div className='flex flex-col m-5'>
+            <label>password</label>
+            <input placeholder='password : Password' type='password' className='px-3 py-2 rounded-lg outline-none m-2' onChange={(e)=>setpassword(e.target.value)}></input>
+          </div>
+          <button type='submit' className='bg-black text-white px-2 py-1 rounded-lg'>login</button>
+        </form>
+        </div>}
+      <img src={require(`../Asset/${img}`)} title={username} className='w-10 h-10 rounded-full' alt='profile-img'></img>
+      </div>
     </div>
   );
 }
