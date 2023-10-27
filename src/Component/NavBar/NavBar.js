@@ -7,6 +7,7 @@ function NavBar({ cart, sum, remove, add, quantity}) {
   const [username , setUsername] = useState("");
   const [password , setpassword ] = useState("");
   const [img , setimg] = useState("default.png");
+  const [auth , setAuth] = useState(false);
 
   const handleSubmit = (e) => {
     let userFound = false; // A flag to track if the user is found
@@ -16,12 +17,14 @@ function NavBar({ cart, sum, remove, add, quantity}) {
         setimg(element.img);
         userFound = true; // Set the flag to true when the user is found
         Setlogin(false)
+        setAuth(true);
       }
       console.log(element)
     });
   
     if (!userFound) {
       alert("User not found"); // Show the alert if the user is not found
+      setAuth(false)
     }
   }
   
@@ -50,7 +53,7 @@ function NavBar({ cart, sum, remove, add, quantity}) {
       <ul className='hidden lg:flex gap-10 justify-between items-center text-xl font-semibold'>
         <Link to='/'>Home</Link>
         <Link to='/Aboutus'>About Us</Link>
-        <Link to="/checkout">Check out</Link>
+        {auth && <Link to="/checkout">Check out</Link>}
       </ul>
       <div>
         <button
@@ -111,7 +114,7 @@ function NavBar({ cart, sum, remove, add, quantity}) {
             >
               Close
             </button>
-            <Link
+            {auth ? <Link
               to={'/checkout'}
               onClick={() => setCartVisible(!cartVisible)}
               className='bg-slate-500 text-white p-2 rounded-2xl w-34 m-1 hover:bg-slate-800'
@@ -121,14 +124,17 @@ function NavBar({ cart, sum, remove, add, quantity}) {
                 className='fa fa-shopping-cart ml-2'
                 style={{ fontSize: '20px' }}
               ></i>
-            </Link>
+            </Link> :
+            <button className='bg-slate-500 text-white p-2 rounded-2xl w-34 m-1 hover:bg-slate-800' onClick={() => { Setlogin(true); setCartVisible(false); }}>
+            Login to checkout
+          </button>}
           </div>
         </div>
       </div>
       )}
       <div className='flex gap-5'>
       <button onClick={()=>Setlogin(!login)}>Sign in</button> 
-      {login && <div className='fixed top-20 rounded-xl text-black bg-slate-400 p-5 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'>
+      {login && <div className=' rounded-xl text-black bg-slate-400 p-5 absolute right-32 top-20'>
         
         <form onSubmit={(e)=>handleSubmit(e)}>
           <div className='flex flex-col m-4'>
